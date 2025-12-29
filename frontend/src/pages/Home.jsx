@@ -23,6 +23,8 @@ import {
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
+const LOGO_URL = "https://customer-assets.emergentagent.com/job_live-tv-streaming-1/artifacts/lq4ihzsa_Logo%20vibrante%20de%20KibukIPTV.png";
+
 const TopNavIcons = ({ onSearch, messageCount }) => {
   const navigate = useNavigate();
   
@@ -138,11 +140,12 @@ export default function Home() {
       {/* Header */}
       <header className="flex items-center justify-between mb-8 md:mb-12">
         <div className="logo-container">
-          <div className="logo-icon">
-            <Play size={24} fill="white" className="ml-1" />
-          </div>
-          <div>
-            <h1 className="text-xl md:text-2xl font-bold tracking-tight">IPTV Stream</h1>
+          <img 
+            src={LOGO_URL} 
+            alt="KibukIPTV" 
+            className="h-14 md:h-16 w-auto object-contain"
+          />
+          <div className="ml-2">
             <p className="text-xs text-white/50">{channelCount} canales disponibles</p>
           </div>
         </div>
