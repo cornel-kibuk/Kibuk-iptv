@@ -1,52 +1,36 @@
-import { useEffect } from "react";
-import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
-
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
+import "@/App.css";
+import { Toaster } from "@/components/ui/sonner";
+import Home from "./pages/Home";
+import LiveTV from "./pages/LiveTV";
+import VOD from "./pages/VOD";
+import Series from "./pages/Series";
+import EPG from "./pages/EPG";
+import Favorites from "./pages/Favorites";
+import Radio from "./pages/Radio";
+import Settings from "./pages/Settings";
+import Search from "./pages/Search";
+import Playlists from "./pages/Playlists";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App main-bg">
+      <div className="light-rays" />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/live-tv" element={<LiveTV />} />
+          <Route path="/vod" element={<VOD />} />
+          <Route path="/series" element={<Series />} />
+          <Route path="/epg" element={<EPG />} />
+          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/radio" element={<Radio />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/playlists" element={<Playlists />} />
         </Routes>
       </BrowserRouter>
+      <Toaster position="top-right" />
     </div>
   );
 }
