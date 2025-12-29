@@ -205,7 +205,7 @@ export default function Playlists() {
 
       {/* Add Playlist Modal */}
       <Dialog open={showAddModal} onOpenChange={setShowAddModal}>
-        <DialogContent className="bg-card border-white/10">
+        <DialogContent className="bg-card border-white/10 z-[200]">
           <DialogHeader>
             <DialogTitle>Agregar Playlist</DialogTitle>
           </DialogHeader>
@@ -236,11 +236,15 @@ export default function Playlists() {
             </div>
           </div>
 
-          <DialogFooter>
+          <DialogFooter className="gap-2">
             <Button variant="outline" onClick={() => setShowAddModal(false)}>
               Cancelar
             </Button>
-            <Button onClick={handleAddPlaylist} disabled={adding}>
+            <Button 
+              data-testid="submit-playlist-btn"
+              onClick={handleAddPlaylist} 
+              disabled={adding}
+            >
               {adding ? "Agregando..." : "Agregar"}
             </Button>
           </DialogFooter>
