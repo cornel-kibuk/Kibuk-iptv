@@ -1,0 +1,128 @@
+{
+  "identity": {
+    "persona": "E1",
+    "mission": "Create a top 1% IPTV streaming interface that blends cinematic immersion with functional clarity.",
+    "principles": [
+      "Fusion over Imitation: Mix TV broadcast aesthetics with modern SaaS dashboard precision.",
+      "Emotion First: The interface should feel 'live' and 'electric'.",
+      "Content is King: The UI recedes; the video content pops.",
+      "Zoom In: Large, bold focus states for remote-friendly navigation.",
+      "Negative Space: Avoid clutter; let the background breathe."
+    ]
+  },
+  "design_context": {
+    "app_type": "IPTV Streaming Dashboard",
+    "target_audience": "Cord-cutters and IPTV enthusiasts who value speed and visual fidelity.",
+    "emotional_tone": "Cinematic, High-Tech, Immersive, Dark, Electric.",
+    "visual_style": "Modern TV Interface (Apple TV meets Cyberpunk Dashboard). Dark Blue gradients, Glassmorphism, Glowing accents."
+  },
+  "typography": {
+    "font_family": {
+      "headings": "Outfit, sans-serif",
+      "body": "Manrope, sans-serif",
+      "mono": "JetBrains Mono, monospace"
+    },
+    "weights": {
+      "light": 300,
+      "regular": 400,
+      "medium": 500,
+      "bold": 700,
+      "black": 900
+    },
+    "sizes": {
+      "display": "text-6xl md:text-8xl tracking-tighter",
+      "h1": "text-4xl md:text-6xl tracking-tight",
+      "h2": "text-3xl md:text-4xl tracking-tight",
+      "h3": "text-2xl md:text-3xl font-medium",
+      "body": "text-base md:text-lg leading-relaxed",
+      "small": "text-sm font-medium tracking-wide uppercase"
+    }
+  },
+  "colors": {
+    "palette": {
+      "background": "hsl(224, 71%, 4%)",
+      "foreground": "hsl(210, 40%, 98%)",
+      "card": "hsl(222, 47%, 11%)",
+      "card_foreground": "hsl(210, 40%, 98%)",
+      "popover": "hsl(222, 47%, 11%)",
+      "popover_foreground": "hsl(210, 40%, 98%)",
+      "primary": "hsl(199, 89%, 48%)",
+      "primary_foreground": "hsl(222, 47%, 11%)",
+      "secondary": "hsl(217, 33%, 17%)",
+      "secondary_foreground": "hsl(210, 40%, 98%)",
+      "muted": "hsl(217, 33%, 17%)",
+      "muted_foreground": "hsl(215, 20%, 65%)",
+      "accent": "hsl(199, 89%, 48%)",
+      "accent_foreground": "hsl(222, 47%, 11%)",
+      "destructive": "hsl(0, 62%, 30%)",
+      "destructive_foreground": "hsl(210, 40%, 98%)",
+      "border": "hsl(217, 33%, 20%)",
+      "input": "hsl(217, 33%, 20%)",
+      "ring": "hsl(199, 89%, 48%)"
+    },
+    "gradients": {
+      "main_bg": "radial-gradient(circle at top right, hsl(220, 60%, 10%), hsl(224, 71%, 4%))",
+      "glow_blue": "linear-gradient(135deg, hsl(199, 89%, 48%), hsl(220, 70%, 50%))",
+      "glass": "linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%)"
+    }
+  },
+  "layout_strategy": {
+    "grid_system": "Bento Grid (Asymmetric)",
+    "spacing": "Generous (p-6 to p-12) to accommodate TV overscan and visual breathing room.",
+    "container": "max-w-[1920px] mx-auto px-6 md:px-12",
+    "z_index": {
+      "background": -1,
+      "content": 10,
+      "overlay": 50,
+      "modal": 100
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all duration-300 hover:scale-105",
+      "secondary": "rounded-xl bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-white/5 hover:border-primary/50 transition-all duration-300",
+      "square_utility": "aspect-square rounded-xl bg-card/50 hover:bg-primary/20 border border-white/5 hover:border-primary flex flex-col items-center justify-center gap-2 transition-all duration-300"
+    },
+    "cards": {
+      "glass": "bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl",
+      "interactive": "group relative overflow-hidden rounded-2xl border border-white/5 bg-card/40 transition-all duration-500 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)]"
+    },
+    "navigation": {
+      "style": "Remote-friendly. Large touch targets. Clear focus states (ring-2 ring-primary ring-offset-2 ring-offset-background)."
+    }
+  },
+  "visual_enhancers": {
+    "glassmorphism": "Use backdrop-blur-xl and bg-white/5 for overlays and sidebars.",
+    "glow_effects": "Use drop-shadow and box-shadow with the primary cyan color to simulate neon lights.",
+    "textures": "Subtle noise overlay (opacity 0.03) to prevent banding on large dark gradients.",
+    "motion": "Framer Motion for smooth layout transitions. 'layout' prop for shared element transitions."
+  },
+  "assets": {
+    "icons": "Lucide React (default). Use large stroke widths (2px or 2.5px) for TV legibility.",
+    "images": {
+      "live_tv_placeholder": "https://images.unsplash.com/photo-1718547719429-fdd74a231fa8?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "vod_placeholder_1": "https://images.unsplash.com/photo-1739891251370-05b62a54697b?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "vod_placeholder_2": "https://images.unsplash.com/photo-1742822050771-588f61785322?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "series_placeholder": "https://images.unsplash.com/photo-1659835347242-97835d671db7?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "news_studio": "https://images.unsplash.com/photo-1581092802212-36559f37c39d?crop=entropy&cs=srgb&fm=jpg&q=85"
+    }
+  },
+  "instructions_to_main_agent": [
+    "1. SETUP: Install 'lucide-react', 'framer-motion', 'clsx', 'tailwind-merge' if not present.",
+    "2. THEME: Update 'tailwind.config.js' and 'index.css' with the provided color palette immediately. Force Dark Mode.",
+    "3. LAYOUT: Build the 'Home Dashboard' first. It must look like a TV Launcher. Use a CSS Grid.",
+    "4. COMPONENTS: Create a reusable 'FocusCard' component that handles the hover/focus scaling and glowing border effect.",
+    "5. NAVIGATION: Ensure the 'Search', 'Parental', 'REC', 'MSG', 'Update' icons are at the top right.",
+    "6. SECTIONS: Create the main oval buttons for 'Live TV', 'EPG', 'VOD', 'Series' in the center/hero area.",
+    "7. FOOTER: Create the square buttons for 'Account', 'Multi', 'Catch Up', 'Favorite', 'Radio', 'Settings' at the bottom.",
+    "8. MOCK DATA: Since there is no backend auth, use local state or context to manage a mock 'M3U Playlist' list.",
+    "9. PLAYER: Use a standard HTML5 video tag or a React wrapper for the Live TV player mock.",
+    "10. ACCESSIBILITY: Ensure all interactive elements have 'data-testid' attributes."
+  ],
+  "universal_guidelines": [
+    "Do not use gradients for text unless it's a very large display title.",
+    "Avoid pure black (#000000). Use the deep blue provided.",
+    "Ensure focus states are extremely visible (for keyboard/remote navigation).",
+    "Use 'sonner' for notifications (e.g., 'Playlist Updated')."
+  ]
+}
