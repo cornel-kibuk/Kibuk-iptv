@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { toast } from "sonner";
 import {
   ArrowLeft,
@@ -46,26 +45,48 @@ export default function LiveTV() {
   }, []);
 
   const fetchData = async () => {
-    try {
-      const [channelsRes, groupsRes, favoritesRes] = await Promise.all([
-        axios.get(`${API}/channels`, { params: { radio: false } }),
-        axios.get(`${API}/channels/groups`),
-        axios.get(`${API}/favorites`),
-      ]);
-      setChannels(channelsRes.data);
-      setGroups(groupsRes.data.groups || []);
-      setFavorites(favoritesRes.data.map(f => f.channel_id));
-      
-      if (channelsRes.data.length > 0) {
-        setSelectedChannel(channelsRes.data[0]);
+  try {
+    // Cargar lista M3U directamente desde iptv-org
+    const m3uRes = await fetch("https://iptv-org.github.io/iptv/channels/es.m3u");
+    const m3uText = await m3uRes.text();
+    
+    // Parsear el archivo M3U
+    const lines = m3uText.split("\n");
+    const parsedChannels = [];
+    let currentChannel = null;
+
+    for (let line of lines) {
+      line = line.trim();
+      if (line.startsWith("#EXTINF:")) {
+        // Extrae el nombre del canal
+        const name = line.includes(",") ? line.split(",").pop() : "Canal";
+        // Extrae el grupo si existe
+        let group = "General";
+        const groupMatch = line.match(/group-title="([^"]*)"/);
+        if (groupMatch && groupMatch[1]) {
+          group = groupMatch[1];
+        }
+        currentChannel = { name: name.trim(), url: "", group, logo: "" };
+      } else if (line.startsWith("http") && currentChannel) {
+        currentChannel.url = line;
+        parsedChannels.push({ ...currentChannel, id: parsedChannels.length + 1 });
+        currentChannel = null;
       }
-    } catch (error) {
-      console.error("Error:", error);
-      toast.error("Error al cargar canales");
-    } finally {
-      setLoading(false);
     }
-  };
+
+    setChannels(parsedChannels);
+    const uniqueGroups = [...new Set(parsedChannels.map(c => c.group))];
+    setGroups(uniqueGroups);
+    if (parsedChannels.length > 0) {
+      setSelectedChannel(parsedChannels[0]);
+    }
+  } catch (error) {
+    console.error("Error al cargar canales:", error);
+    toast.error("Error al cargar canales");
+  } finally {
+    setLoading(false);
+  }
+};
 
   const filteredChannels = channels.filter(channel => {
     const matchesSearch = channel.name.toLowerCase().includes(searchQuery.toLowerCase());
@@ -82,26 +103,17 @@ export default function LiveTV() {
     }
   };
 
-  const toggleFavorite = async (channel) => {
-    try {
-      if (favorites.includes(channel.id)) {
-        await axios.delete(`${API}/favorites/${channel.id}`);
-        setFavorites(favorites.filter(id => id !== channel.id));
-        toast.success("Eliminado de favoritos");
-      } else {
-        await axios.post(`${API}/favorites`, {
-          channel_id: channel.id,
-          channel_name: channel.name,
-          channel_url: channel.url,
-          channel_logo: channel.logo,
-          channel_group: channel.group,
-        });
-        setFavorites([...favorites, channel.id]);
-        toast.success("Añadido a favoritos");
-      }
-    } catch (error) {
-      toast.error("Error al actualizar favoritos");
-    }
+  const toggleFavorite = (channel) => {
+  let currentFavorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+  if (currentFavorites.includes(channel.id)) {
+    currentFavorites = currentFavorites.filter(id => id !== channel.id);
+    toast.success("Eliminado de favoritos");
+  } else {
+    currentFavorites.push(channel.id);
+    toast.success("Añadido a favoritos");
+  }
+  localStorage.setItem("favorites", JSON.stringify(currentFavorites));
+  setFavorites(currentFavorites);
   };
 
   const togglePlay = () => {
